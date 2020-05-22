@@ -16,7 +16,7 @@ tags: [ "Git", "软件工程"]
 
 ### 看图说话
 
-![gitflow graph](https://nvie.com/img/git-model@2x.png)
+![gitflow graph](img/git-flow.png)
 
 1. 分支稳定性排序，哪个分支最稳定，为什么？
 2. master 是否可以直接提交？
