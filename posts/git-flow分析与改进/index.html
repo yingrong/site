@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Git Flow 分析与改进 - 观察 记录</title><meta name="Description" content=""><meta property="og:title" content="Git Flow 分析与改进" />
+<meta property="og:description" content="Git Flow 分支策略简介 常用分支策略: https://www.ibm.com/developerworks/cn/java/j-lo-git-mange/ Git Flow 介绍 https://nvie.com/posts/a-successful-git-branching-model/ 为什么不再建议使用 Git Flow https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/ 看图说话 分支稳定性排序，哪个分支最稳定，为什么？ master 是否可以直接提交？ fix master 分" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/" />
+<meta property="article:published_time" content="2020-05-15T22:52:21+08:00" />
+<meta property="article:modified_time" content="2020-05-16T22:52:21+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git Flow 分析与改进"/>
+<meta name="twitter:description" content="Git Flow 分支策略简介 常用分支策略: https://www.ibm.com/developerworks/cn/java/j-lo-git-mange/ Git Flow 介绍 https://nvie.com/posts/a-successful-git-branching-model/ 为什么不再建议使用 Git Flow https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/ 看图说话 分支稳定性排序，哪个分支最稳定，为什么？ master 是否可以直接提交？ fix master 分"/>
+<meta name="application-name" content="观察 记录">
+<meta name="apple-mobile-web-app-title" content="观察 记录"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/" /><link rel="next" href="http://example.org/posts/hugo-git/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git Flow 分析与改进",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B\/"
+        },"genre": "posts","keywords": "Git, 软件工程","wordcount":  516 ,
+        "url": "http:\/\/example.org\/posts\/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B\/","datePublished": "2020-05-15T22:52:21+08:00","dateModified": "2020-05-16T22:52:21+08:00","author": {
+                "@type": "Person",
+                "name": "yingrong"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="观察 记录">观察 记录</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="观察 记录">观察 记录</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Git Flow 分析与改进</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yingrong</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-15">2020-05-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 516 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-flow-分支策略简介">Git Flow 分支策略简介</a>
+      <ul>
+        <li><a href="#看图说话">看图说话</a></li>
+      </ul>
+    </li>
+    <li><a href="#常见问题及其可能的原因">常见问题及其可能的原因</a></li>
+    <li><a href="#改进-git-flow">改进 Git Flow</a></li>
+    <li><a href="#进一步优化">进一步优化</a></li>
+    <li><a href="#举个例子">举个例子</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="git-flow-分支策略简介">Git Flow 分支策略简介</h2>
+<p><strong>常用分支策略</strong>: <a href="https://www.ibm.com/developerworks/cn/java/j-lo-git-mange/">https://www.ibm.com/developerworks/cn/java/j-lo-git-mange/</a></p>
+<p><strong>Git Flow</strong> 介绍 <a href="https://nvie.com/posts/a-successful-git-branching-model/">https://nvie.com/posts/a-successful-git-branching-model/</a></p>
+<p>为什么<strong>不再建议</strong>使用 Git Flow <a href="https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/">https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/</a></p>
+<h3 id="看图说话">看图说话</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading/small.min.svg"
+        data-src="/img/git-flow.png"
+        data-srcset="/img/git-flow.png, /img/git-flow.png 1.5x, /img/git-flow.png 2x"
+        data-sizes="auto"
+        alt="gitflow graph"
+        title="gitflow graph" /></p>
+<ol>
+<li>分支稳定性排序，哪个分支最稳定，为什么？</li>
+<li>master 是否可以直接提交？</li>
+<li>fix master 分支的 bug 时，是否可复用原来的 hotfix 分支？</li>
+<li>新建 release 分支之后，从 feature 分支 合并回 develop 分支的提交，是否要合并到 release 分支？</li>
+<li>多个 feature 分支直接是否可以合并？</li>
+</ol>
+<h2 id="常见问题及其可能的原因">常见问题及其可能的原因</h2>
+<blockquote>
+<p>常见问题:</p>
+</blockquote>
+<ul>
+<li>分支合并时频繁发生冲突</li>
+<li>release 分支 bug 过多</li>
+<li>develop 分支不稳定</li>
+</ul>
+<blockquote>
+<p>可能的原因：</p>
+</blockquote>
+<ul>
+<li>feature 分支存在时间过长</li>
+<li>feature 分支过多</li>
+<li>feature 分支之间有依赖关系</li>
+<li>release 版本特规划不合理</li>
+<li>测试问题</li>
+</ul>
+<h2 id="改进-git-flow">改进 Git Flow</h2>
+<ol>
+<li>特性分支合并回develop分支之前，预合并</li>
+<li>特性分支时间尽量短（一天以内）</li>
+<li>各特性分支之间尽量独立可测，无依赖（拆分功能，组织、排序）</li>
+<li>特性分支不要过多（控制WIP）</li>
+</ol>
+<h2 id="进一步优化">进一步优化</h2>
+<ol>
+<li>频繁小步提交</li>
+<li>rebase替代merge(注意：rebase 强大但不要滥用)</li>
+<li>测试保护</li>
+<li>持续集成</li>
+<li>单主干分支</li>
+</ol>
+<h2 id="举个例子">举个例子</h2>
+<ol>
+<li><strong>开发新功能 foo</strong></li>
+</ol>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    <span style="color:#888"># 新的一天</span>                                                            
+    <span style="color:#080;font-weight:bold">$(</span>09:30 develop<span style="color:#080;font-weight:bold">)</span>: git pull --rebase
+
+    <span style="color:#888"># 开卡，创建新分支</span>
+    <span style="color:#080;font-weight:bold">$(</span>10:00  develop<span style="color:#080;font-weight:bold">)</span>: git checkout -b feature-foo
+
+    <span style="color:#888"># 频繁小步提交</span>
+    <span style="color:#080;font-weight:bold">$(</span>10:05 feature-foo<span style="color:#080;font-weight:bold">)</span>: git commit
+    <span style="color:#080;font-weight:bold">$(</span>10:07 feature-foo<span style="color:#080;font-weight:bold">)</span>: git commit
+    <span style="color:#080;font-weight:bold">$(</span>10:11 feature-foo<span style="color:#080;font-weight:bold">)</span>: git commit
+    <span style="color:#080;font-weight:bold">$(</span>10:30 feature-foo<span style="color:#080;font-weight:bold">)</span>: git commit
+
+    <span style="color:#888"># 本地开发测试完成，准备合并</span>
+    <span style="color:#080;font-weight:bold">$(</span>10:30 feature-foo<span style="color:#080;font-weight:bold">)</span>: git checkout develop
+    <span style="color:#080;font-weight:bold">$(</span>10:30 develop<span style="color:#080;font-weight:bold">)</span>: git pull --rebase
+    <span style="color:#080;font-weight:bold">$(</span>10:30 develop<span style="color:#080;font-weight:bold">)</span>: git checkout feature-foo
+    <span style="color:#080;font-weight:bold">$(</span>10:40 feature-foo<span style="color:#080;font-weight:bold">)</span>: git rebase develop
+    
+    <span style="color:#888"># 结卡完成</span>
+    <span style="color:#080;font-weight:bold">$(</span>11:00 feature-foo<span style="color:#080;font-weight:bold">)</span>: git checkout develop
+    <span style="color:#080;font-weight:bold">$(</span>11:00 develop<span style="color:#080;font-weight:bold">)</span>: git merge feature-foo
+    <span style="color:#080;font-weight:bold">$(</span>11:00 develop<span style="color:#080;font-weight:bold">)</span>: git pull --rebase
+    <span style="color:#080;font-weight:bold">$(</span>11:01 develop<span style="color:#080;font-weight:bold">)</span>: git push
+    
+    <span style="color:#888"># 别忘了删除特性分支</span>
+    <span style="color:#080;font-weight:bold">$(</span>11:01 develop<span style="color:#080;font-weight:bold">)</span>: git branch -d feature-foo
+    <span style="color:#888"># 提交测试</span>
+</code></pre></div><ol start="2">
+<li>
+<p>合并冲突</p>
+<ol>
+<li>找，和谁的哪次提交冲突了</li>
+<li>协商解决</li>
+<li>回归测试</li>
+</ol>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-05-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/git/">Git</a>,&nbsp;<a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/hugo-git/" class="next" rel="next" title="Hugo 中的三个 Git 知识点">Hugo 中的三个 Git 知识点<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.69.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.9"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

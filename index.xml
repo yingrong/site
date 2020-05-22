@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>观察 记录</title>
-    <link>http://example.org/</link>
-    <description>Recent content on 观察 记录</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 15 May 2020 22:52:21 +0800</lastBuildDate>
-    
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Git Flow 分析与改进</title>
-      <link>http://example.org/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/</link>
-      <pubDate>Fri, 15 May 2020 22:52:21 +0800</pubDate>
-      
-      <guid>http://example.org/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/</guid>
-      <description>Git Flow 分支策略简介 常用分支策略: https://www.ibm.com/developerworks/cn/java/j-lo-git-mange/ Git Flow 介绍 https://nvie.com/posts/a-successful-git-branching-model/ 为什么不再建议使用 Git Flow https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/ 看图说话 分支稳定性排序，哪个分支最稳定，为什么？ master 是否可以直接提交？ fix master 分</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>观察 记录</title>
+        <link>http://example.org/</link>
+        <description>观察 记录</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 20 May 2020 22:23:53 &#43;0800</lastBuildDate>
+            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Hugo 中的三个 Git 知识点</title>
+    <link>http://example.org/posts/hugo-git/</link>
+    <pubDate>Wed, 20 May 2020 22:23:53 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/hugo-git/</guid>
+    <description><![CDATA[Hugo 中的三个 Git 技巧 Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用来]]></description>
+</item><item>
+    <title>Git Flow 分析与改进</title>
+    <link>http://example.org/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/</link>
+    <pubDate>Fri, 15 May 2020 22:52:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/</guid>
+    <description><![CDATA[Git Flow 分支策略简介 常用分支策略: https://www.ibm.com/developerworks/cn/java/j-lo-git-mange/ Git Flow 介绍 https://nvie.com/posts/a-successful-git-branching-model/ 为什么不再建议使用 Git Flow https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/ 看图说话 分支稳定性排序，哪个分支最稳定，为什么？ master 是否可以直接提交？ fix master 分]]></description>
+</item></channel>
 </rss>

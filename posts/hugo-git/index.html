@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Hugo 中的三个 Git 知识点 - 观察 记录</title><meta name="Description" content=""><meta property="og:title" content="Hugo 中的三个 Git 知识点" />
+<meta property="og:description" content="Hugo 中的三个 Git 技巧 Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用来" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/hugo-git/" />
+<meta property="article:published_time" content="2020-05-20T22:23:53+08:00" />
+<meta property="article:modified_time" content="2020-05-20T22:23:53+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hugo 中的三个 Git 知识点"/>
+<meta name="twitter:description" content="Hugo 中的三个 Git 技巧 Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用来"/>
+<meta name="application-name" content="观察 记录">
+<meta name="apple-mobile-web-app-title" content="观察 记录"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/hugo-git/" /><link rel="prev" href="http://example.org/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hugo 中的三个 Git 知识点",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/hugo-git\/"
+        },"genre": "posts","wordcount":  667 ,
+        "url": "http:\/\/example.org\/posts\/hugo-git\/","datePublished": "2020-05-20T22:23:53+08:00","dateModified": "2020-05-20T22:23:53+08:00","author": {
+                "@type": "Person",
+                "name": "yingrong"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="观察 记录">观察 记录</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="观察 记录">观察 记录</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Hugo 中的三个 Git 知识点</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yingrong</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-20">2020-05-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 667 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-submodule">git submodule</a></li>
+    <li><a href="#git-checkout---orphan1-new_branch">git checkout &ndash;orphan &lt;new_branch&gt;</a></li>
+    <li><a href="#git-worktree">git worktree</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="hugo-中的三个-git-技巧">Hugo 中的三个 Git 技巧</h1>
+<p><a href="http://sangsoonam.github.io/2019/02/08/using-git-worktree-to-deploy-github-pages.html" title="Using Git Worktree to Deploy GitHub Pages" target="_blank" rel="noopener noreffer"><strong>Using Git Worktree to Deploy GitHub Pages</strong></a></p>
+<p><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/" title="Host on GitHub" target="_blank" rel="noopener noreffer"><strong>Host on GitHub</strong></a></p>
+<p>最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。</p>
+<h2 id="git-submodule">git submodule</h2>
+<p>就像网页中的 HTML 和 CSS，一个用来表示结构与内容，一个负责样式展示，可以在不改变html的情况下，修改css实现网页样式的改变。</p>
+<p>在hugo中也一样，themes目录下存放网站主题，一般是一个个单独的仓库。而根目录下的其他文件则是我们自己控制的，比如content目录存放markdown格式的内容。</p>
+<p>当一个项目的不同内容来源于不同的git仓库，就可以使用git的submodule 命令了。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ tree -aL <span style="color:#60e;font-weight:bold">1</span>
+  .
+  ├── .git
+  ├── .gitignore
+  ├── archetypes
+  ├── config.toml
+  ├── content
+  ├── data
+  ├── layouts
+  ├── public
+  ├── resources
+  ├── static
+  └── themes
+$ <span style="color:#007020">cd</span> themes
+$ git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
+$ tree -aL <span style="color:#60e;font-weight:bold">1</span>
+  .
+  ├── .git
+  ├── .gitignore
+  ├── .gitmodules
+  ├── archetypes
+  ├── config.toml
+  ├── content
+  ├── data
+  ├── layouts
+  ├── public
+  ├── resources
+  ├── static
+  └── themes
+$ cat .gitmodules
+<span style="color:#333">[</span>submodule <span style="background-color:#fff0f0">&#34;themes/LoveIt&#34;</span><span style="color:#333">]</span>
+	<span style="color:#963">path</span> <span style="color:#333">=</span> themes/LoveIt
+	<span style="color:#963">url</span> <span style="color:#333">=</span> https://github.com/dillonzq/LoveIt.git
+
+</code></pre></div><h2 id="git-checkout---orphan1-new_branch">git checkout &ndash;orphan<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> &lt;new_branch&gt;</h2>
+<p>部署到GitHub时，如果选择project方式部署，并且保留非public目录的话，那么需要一个单独的 gh-pages 分支来存放 public 下文件。</p>
+<p>默认情况下，新建分支会保留原分支的历史。但 gh-pages 分支的内容 是hugo 生成的，没必要保留上级目录的历史。</p>
+<p>通过上述命令可以让 gh-pages 成为一个“orphan”分支。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git checkout --orphan gh-pages
+$ git reset --hard
+$ git commit --allow-empty -m <span style="background-color:#fff0f0">&#34;Init&#34;</span>
+$ git checkout master
+</code></pre></div><h2 id="git-worktree">git worktree</h2>
+<p>默认一个git仓库有一个worktree，不同的分支共享同样的 worktree。</p>
+<p>现在我们要求：gb-pages分支“只管理”public目录下的文件，而根目录下其他文件在 master 分支管理。</p>
+<p>git worktree 结合 孤儿分支完美解决来这个问题。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git worktree add public gh-pages
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>orphan 1. adj. 孤儿的；无双亲的 2. n. 孤儿 3. vt. 使成孤儿 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-05-20</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/" class="prev" rel="prev" title="Git Flow 分析与改进"><i class="fas fa-angle-left fa-fw"></i>Git Flow 分析与改进</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.69.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.9"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
