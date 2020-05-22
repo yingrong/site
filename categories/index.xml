@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Categories - 分类 - 观察 记录 成长</title>
-        <link>http://example.orghttps://yingrong.github.io/site/categories/</link>
+        <link>https://yingrong.github.io/site/categories/</link>
         <description>Categories - 分类 - 观察 记录 成长</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.orghttps://yingrong.github.io/site/categories/" rel="self" type="application/rss+xml" /></channel>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://yingrong.github.io/site/categories/" rel="self" type="application/rss+xml" /></channel>
 </rss>

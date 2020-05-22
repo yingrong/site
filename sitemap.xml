@@ -2,11 +2,11 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/posts/hugo-git/</loc><lastmod>2020-05-20T22:23:53&#43;08:00</lastmod></url><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/posts/</loc><lastmod>2020-05-20T22:23:53&#43;08:00</lastmod></url><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/</loc><lastmod>2020-05-20T22:23:53&#43;08:00</lastmod></url><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/tags/git/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/tags/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
-            <loc>http://example.orghttps://yingrong.github.io/site/categories/</loc></url></urlset>
+            <loc>https://yingrong.github.io/site/posts/hugo-git/</loc><lastmod>2020-05-20T22:23:53&#43;08:00</lastmod></url><url>
+            <loc>https://yingrong.github.io/site/posts/</loc><lastmod>2020-05-20T22:23:53&#43;08:00</lastmod></url><url>
+            <loc>https://yingrong.github.io/site/</loc><lastmod>2020-05-20T22:23:53&#43;08:00</lastmod></url><url>
+            <loc>https://yingrong.github.io/site/tags/git/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
+            <loc>https://yingrong.github.io/site/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
+            <loc>https://yingrong.github.io/site/tags/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
+            <loc>https://yingrong.github.io/site/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</loc><lastmod>2020-05-16T22:52:21&#43;08:00</lastmod></url><url>
+            <loc>https://yingrong.github.io/site/categories/</loc></url></urlset>
