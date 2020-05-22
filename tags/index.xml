@@ -1,21 +1,21 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Tags - 标签 - 观察 记录</title>
-        <link>http://example.org/tags/</link>
-        <description>Tags - 标签 - 观察 记录</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 15 May 2020 22:52:21 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+        <title>Tags - 标签 - 观察 记录 成长</title>
+        <link>http://example.orghttps://yingrong.github.io/site/tags/</link>
+        <description>Tags - 标签 - 观察 记录 成长</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 15 May 2020 22:52:21 &#43;0800</lastBuildDate><atom:link href="http://example.orghttps://yingrong.github.io/site/tags/" rel="self" type="application/rss+xml" /><item>
     <title>Git</title>
-    <link>http://example.org/tags/git/</link>
+    <link>http://example.orghttps://yingrong.github.io/site/tags/git/</link>
     <pubDate>Fri, 15 May 2020 22:52:21 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/tags/git/</guid>
+    <guid>http://example.orghttps://yingrong.github.io/site/tags/git/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>软件工程</title>
-    <link>http://example.org/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
+    <link>http://example.orghttps://yingrong.github.io/site/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
     <pubDate>Fri, 15 May 2020 22:52:21 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</guid>
+    <guid>http://example.orghttps://yingrong.github.io/site/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
