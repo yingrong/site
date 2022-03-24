@@ -6,14 +6,14 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Hugo 中的三个 Git 知识点 - 观察 记录 成长</title><meta name="Description" content=""><meta property="og:title" content="Hugo 中的三个 Git 知识点" />
-<meta property="og:description" content="Hugo 中的三个 Git 技巧 Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用来" />
+<meta property="og:description" content="Hugo 中的三个 Git 技巧 ====================== Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yingrong.github.io/site/posts/hugo-git/" />
 <meta property="article:published_time" content="2020-05-20T22:23:53+08:00" />
 <meta property="article:modified_time" content="2020-05-20T22:23:53+08:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hugo 中的三个 Git 知识点"/>
-<meta name="twitter:description" content="Hugo 中的三个 Git 技巧 Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用来"/>
+<meta name="twitter:description" content="Hugo 中的三个 Git 技巧 ====================== Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用"/>
 <meta name="application-name" content="观察 记录 成长">
 <meta name="apple-mobile-web-app-title" content="观察 记录 成长"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -26,7 +26,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yingrong.github.io\/site\/posts\/hugo-git\/"
-        },"genre": "posts","wordcount":  667 ,
+        },"genre": "posts","wordcount":  764 ,
         "url": "https:\/\/yingrong.github.io\/site\/posts\/hugo-git\/","datePublished": "2020-05-20T22:23:53+08:00","dateModified": "2020-05-20T22:23:53+08:00","author": {
                 "@type": "Person",
                 "name": "yingrong"
@@ -74,7 +74,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Hugo 中的三个 Git 知识点</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/site/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>yingrong</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-20">2020-05-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 667 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-20">2020-05-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 764 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -84,11 +84,13 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#git-submodule">git submodule</a></li>
-    <li><a href="#git-checkout---orphan1-new_branch">git checkout &ndash;orphan &lt;new_branch&gt;</a></li>
+    <li><a href="#孤儿分支">孤儿分支</a></li>
     <li><a href="#git-worktree">git worktree</a></li>
+    <li><a href="#例">例：</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h1 id="hugo-中的三个-git-技巧">Hugo 中的三个 Git 技巧</h1>
+<p>======================</p>
 <p><a href="http://sangsoonam.github.io/2019/02/08/using-git-worktree-to-deploy-github-pages.html" title="Using Git Worktree to Deploy GitHub Pages" target="_blank" rel="noopener noreffer"><strong>Using Git Worktree to Deploy GitHub Pages</strong></a></p>
 <p><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/" title="Host on GitHub" target="_blank" rel="noopener noreffer"><strong>Host on GitHub</strong></a></p>
 <p>最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。</p>
@@ -130,20 +132,34 @@ $ cat .gitmodules
 	<span style="color:#963">path</span> <span style="color:#333">=</span> themes/LoveIt
 	<span style="color:#963">url</span> <span style="color:#333">=</span> https://github.com/dillonzq/LoveIt.git
 
-</code></pre></div><h2 id="git-checkout---orphan1-new_branch">git checkout &ndash;orphan<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> &lt;new_branch&gt;</h2>
+</code></pre></div><h2 id="孤儿分支">孤儿分支</h2>
+<p>git checkout &ndash;orphan<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> &lt;new_branch&gt;</p>
 <p>部署到GitHub时，如果选择project方式部署，并且保留非public目录的话，那么需要一个单独的 gh-pages 分支来存放 public 下文件。</p>
 <p>默认情况下，新建分支会保留原分支的历史。但 gh-pages 分支的内容 是hugo 生成的，没必要保留上级目录的历史。</p>
-<p>通过上述命令可以让 gh-pages 成为一个“orphan”分支。</p>
+<p>通过下述命令可以让 gh-pages 成为一个“orphan”分支。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git checkout --orphan gh-pages
 $ git reset --hard
 $ git commit --allow-empty -m <span style="background-color:#fff0f0">&#34;Init&#34;</span>
 $ git checkout master
-</code></pre></div><h2 id="git-worktree">git worktree</h2>
-<p>默认一个git仓库有一个worktree，不同的分支共享同样的 worktree。</p>
+</code></pre></div><p>这样，我们就新建了一个没有提交历史与文件的空 gh-pages 分支。</p>
+<h2 id="git-worktree">git worktree</h2>
 <p>现在我们要求：gb-pages分支“只管理”public目录下的文件，而根目录下其他文件在 master 分支管理。</p>
 <p>git worktree 结合 孤儿分支完美解决来这个问题。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git worktree add public gh-pages
-</code></pre></div><section class="footnotes" role="doc-endnotes">
+$ <span style="color:#007020">echo</span> public &gt;&gt; .gitignore
+</code></pre></div><p>另外，如果主分支不想看到public目录下的文件与提交。可以把这个目录加到 .gitignore 文件中。</p>
+<h2 id="例">例：</h2>
+<p>hugo项目文件在跟目录，通过 master分支管理，
+运行 Hugo build生成的文件在public目录，通过 gh-pages 分支管理。</p>
+<p><img
+        class="lazyload"
+        src="/site/svg/loading/small.min.svg"
+        data-src="/site/img/hugo-git.png"
+        data-srcset="/site/img/hugo-git.png, /site/img/hugo-git.png 1.5x, /site/img/hugo-git.png 2x"
+        data-sizes="auto"
+        alt="/site/img/hugo-git.png"
+        title="/site/img/hugo-git.png" /></p>
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -180,7 +196,7 @@ $ git checkout master
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.69.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.9"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/site/" target="_blank"></a></span></div>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/site/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

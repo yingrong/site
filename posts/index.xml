@@ -16,7 +16,7 @@
     <pubDate>Wed, 20 May 2020 22:23:53 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://yingrong.github.io/site/posts/hugo-git/</guid>
-    <description><![CDATA[Hugo 中的三个 Git 技巧 Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用来]]></description>
+    <description><![CDATA[Hugo 中的三个 Git 技巧 ====================== Using Git Worktree to Deploy GitHub Pages Host on GitHub 最近在用 hugo 配合 GitHub 搭建静态博客,参考以上两篇文章，学到了三个 git 小技巧。 git submodule 就像网页中的 HTML 和 CSS，一个用]]></description>
 </item><item>
     <title>Git Flow 分析与改进</title>
     <link>https://yingrong.github.io/site/posts/git-flow%E5%88%86%E6%9E%90%E4%B8%8E%E6%94%B9%E8%BF%9B/</link>
