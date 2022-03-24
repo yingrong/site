@@ -5,7 +5,7 @@ author: yingrong
 # draft: true
 ---
 
-Hugo 中的三个 Git 技巧
+# Hugo 中的三个 Git 技巧
 ======================
 
 
@@ -66,14 +66,15 @@ $ cat .gitmodules
 
 ```
 
-## git checkout --orphan[^1] <new_branch>
+## 孤儿分支
+
+git checkout --orphan[^1] <new_branch>
 
 部署到GitHub时，如果选择project方式部署，并且保留非public目录的话，那么需要一个单独的 gh-pages 分支来存放 public 下文件。
 
 默认情况下，新建分支会保留原分支的历史。但 gh-pages 分支的内容 是hugo 生成的，没必要保留上级目录的历史。
 
-通过上述命令可以让 gh-pages 成为一个“orphan”分支。
-
+通过下述命令可以让 gh-pages 成为一个“orphan”分支。
 
 
 ```shell
@@ -82,19 +83,23 @@ $ git reset --hard
 $ git commit --allow-empty -m "Init"
 $ git checkout master
 ```
-
+这样，我们就新建了一个没有提交历史与文件的空 gh-pages 分支。
 ## git worktree
-
-默认一个git仓库有一个worktree，不同的分支共享同样的 worktree。
-
 现在我们要求：gb-pages分支“只管理”public目录下的文件，而根目录下其他文件在 master 分支管理。
 
 git worktree 结合 孤儿分支完美解决来这个问题。
 
 ```shell
 $ git worktree add public gh-pages
+$ echo public >> .gitignore
 ```
+另外，如果主分支不想看到public目录下的文件与提交。可以把这个目录加到 .gitignore 文件中。
 
+## 例：
+hugo项目文件在跟目录，通过 master分支管理，
+运行 Hugo build生成的文件在public目录，通过 gh-pages 分支管理。
+
+![](img/hugo-git.png)
 
 [^1]: orphan 1. adj. 孤儿的；无双亲的 2. n. 孤儿 3. vt. 使成孤儿
 
