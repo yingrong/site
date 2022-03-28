@@ -15,7 +15,7 @@ await syncToRemote(outOfGitStatus);
 
 async function syncToRemote(outOfGitStatus) {
     if(/nothing added to commit but untracked files present/.test(outOfGitStatus)) {
-        console.log(chalk.blue('Please check you local file first!'))
+        console.log(chalk.red('Please check you local file first!'))
         return;
     }
 
