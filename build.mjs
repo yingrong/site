@@ -36,6 +36,6 @@ async function syncToRemote(outOfGitStatus) {
     } else if(/use "git push" to publish your local commits/.test(outOfGitStatus)) {
         await $`git push`
     } else {
-        console.log(`unkown git log of git status: ${outOfGitStatus}`);
+        console.log(chalk.yellow(`unkown git log of git status: ${outOfGitStatus}`));
     }
 }
