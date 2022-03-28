@@ -15,6 +15,7 @@ await syncToRemote(outOfGitStatus);
 
 async function syncToRemote(outOfGitStatus) {
     let branchName = outOfGitStatus.toString().match(/On branch (.*)$/m)[1];
+    let now = new Date().toISOString();
 
     if(/nothing added to commit but untracked files present/.test(outOfGitStatus)) {
         console.log(chalk.red('Please check you local file first!'))
@@ -25,12 +26,12 @@ async function syncToRemote(outOfGitStatus) {
     || /no changes added to commit/.test(outOfGitStatus)) {
         // need git add,commit,push
         await $`git add .`;
-        await $`git commit -m 'commit ${branchName} $new Date().toISOString()'`;
+        await $`git commit -m 'commit ${branchName} ${now}'`;
         await $`git push`;
         return;
     } else if(/Changes to be committed/.test(outOfGitStatus)) {
         // need commit,push
-        await $`git commit -m 'commit ${branchName} ${new Date().toISOString()}'`;
+        await $`git commit -m 'commit ${branchName} ${now}'`;
         await $`git push`;
         return; 
     } else if(/use "git push" to publish your local commits/.test(outOfGitStatus)) {
