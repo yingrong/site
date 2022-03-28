@@ -25,7 +25,7 @@ async function syncToRemote(outOfGitStatus) {
     || /no changes added to commit/.test(outOfGitStatus)) {
         // need git add,commit,push
         await $`git add .`;
-        await $`git commit -m 'commit ${branchName} ${new Date().toISOString()}'`;
+        await $`git commit -m 'commit ${branchName} $new Date().toISOString()'`;
         await $`git push`;
         return;
     } else if(/Changes to be committed/.test(outOfGitStatus)) {
