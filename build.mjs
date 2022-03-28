@@ -14,6 +14,11 @@ await syncToRemote(outOfGitStatus);
 
 
 async function syncToRemote(outOfGitStatus) {
+    if(/nothing added to commit but untracked files present/.test(outOfGitStatus)) {
+        console.warn('Please check you local file first!')
+        return;
+    }
+
     if (/Changes not staged for commit/.test(outOfGitStatus)) {
         // need git add,commit,push
         await $`git add .`;
