@@ -35,6 +35,8 @@ async function syncToRemote(outOfGitStatus) {
         return; 
     } else if(/use "git push" to publish your local commits/.test(outOfGitStatus)) {
         await $`git push`
+    } else if(/Your branch is up to date with/.test(outOfGitStatus) && /nothing to commit, working tree clean/.test(outOfGitStatus)) {
+        
     } else {
         console.log(chalk.yellow(`unkown git log of git status:\n ${outOfGitStatus}`));
     }
