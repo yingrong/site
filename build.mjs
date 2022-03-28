@@ -2,11 +2,14 @@
 
 await $`hugo`
 
+
+let outOfGitStatus = await $`git status`
+await syncToRemote(outOfGitStatus);
+
 cd('public')
 await $`pwd`
 
-
-let outOfGitStatus = await $`git status`
+outOfGitStatus = await $`git status`
 await syncToRemote(outOfGitStatus);
 
 
@@ -22,7 +25,9 @@ async function syncToRemote(outOfGitStatus) {
         await $`git commit -m 'commit public $(new Date)'`;
         await $`git push`;
         return; 
+    } else if(/use "git push" to publish your local commits/.test(outOfGitStatus)) {
+        await $`git push`
     } else {
-        
+        console.warn(`unkown git log of git status: ${outOfGitStatus}`);
     }
 }
