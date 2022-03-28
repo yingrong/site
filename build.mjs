@@ -1,28 +1,28 @@
 #!/usr/bin/env zx
 
-console.log('hello')
 await $`hugo`
-await $`cd public`
-let gst = await $`git status`
-// console.log(gst)
-await syncToRemote(gst);
 
-// await $`git status`
-// .pipe(syncToRemote);
+cd('public')
+await $`pwd`
 
-async function syncToRemote(gitOut) {
 
-    if (/Changes not staged for commit/.test(gitOut)) {
+let outOfGitStatus = await $`git status`
+await syncToRemote(outOfGitStatus);
+
+
+async function syncToRemote(outOfGitStatus) {
+    if (/Changes not staged for commit/.test(outOfGitStatus)) {
         // need git add,commit,push
-        await $`git add .`
-        .pipe($`git commit -m 'commit public $(new Date)'`)
-        .pipe($`git push`)
+        await $`git add .`;
+        await $`git commit -m 'commit public $(new Date)'`;
+        await $`git push`;
         return;
-    } else if(/Changes to be committed/.test(gitOut)) {
+    } else if(/Changes to be committed/.test(outOfGitStatus)) {
         // need commit,push
-        await $`git commit -m 'commit public $(new Date)'`
-        .pipe($`git push`)
+        await $`git commit -m 'commit public $(new Date)'`;
+        await $`git push`;
         return; 
+    } else {
+        
     }
-    return true;
 }
