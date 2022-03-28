@@ -2,6 +2,7 @@
 title: "Hugo 中的三个 Git 知识点"
 date: 2020-05-20T22:23:53+08:00
 author: yingrong
+tags: [ "Git", "hugo"]
 # draft: true
 ---
 
