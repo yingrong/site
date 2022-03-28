@@ -15,7 +15,7 @@ await syncToRemote(outOfGitStatus);
 
 async function syncToRemote(outOfGitStatus) {
     if(/nothing added to commit but untracked files present/.test(outOfGitStatus)) {
-        console.warn('Please check you local file first!')
+        console.log('Please check you local file first!')
         return;
     }
 
@@ -33,6 +33,6 @@ async function syncToRemote(outOfGitStatus) {
     } else if(/use "git push" to publish your local commits/.test(outOfGitStatus)) {
         await $`git push`
     } else {
-        console.warn(`unkown git log of git status: ${outOfGitStatus}`);
+        console.log(`unkown git log of git status: ${outOfGitStatus}`);
     }
 }
